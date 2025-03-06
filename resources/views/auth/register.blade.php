@@ -18,7 +18,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/buksu-logo.png') }}">
   <title>BukSU Student Information System - Register</title>
   
   <!--     Fonts and icons     -->
@@ -74,7 +74,7 @@
     }
     
     .buksu-hero {
-      background: url('{{ asset("assets/img/logo-buksu.png") }}');
+      background: url('{{ asset("assets/img/buksu-logo.png") }}');
       background-size: 80px;
       background-repeat: no-repeat;
       background-position: top center;
@@ -88,6 +88,7 @@
     
     .login-panel {
       border-radius: 10px;
+      background: #000000 !important; /* Override the bg-gradient-primary */
     }
     
     label {
@@ -118,7 +119,7 @@
               <div class="card card-plain">
                 <div class="card-header pb-0 text-left">
                   <div class="text-center mb-3">
-                    <img src="{{ asset('assets/img/logo-buksu.png') }}" alt="BukSU Logo" class="buksu-logo-small">
+                    <img src="{{ asset('assets/img/buksu-logo1.png') }}" alt="BukSU Logo" class="buksu-logo-small">
                   </div>
                   <h4 class="font-weight-bolder text-center">Student Registration</h4>
                   <p class="mb-0 text-center">Create your BukSU SIS account</p>

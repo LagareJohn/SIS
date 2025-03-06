@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SubjectRequest;
 use App\Models\Subject;
-use Illuminate\Http\Request;
 
 class AdminSubjectController extends Controller
 {
@@ -14,17 +14,9 @@ class AdminSubjectController extends Controller
         return view('admin.subjects.index', compact('subjects'));
     }
 
-    public function store(Request $request)
+    public function store(SubjectRequest $request)
     {
-        $request->validate([
-            'code' => ['required', 'string', 'max:20', 'unique:subjects'],
-            'name' => ['required', 'string', 'max:255'],
-            'units' => ['required', 'integer', 'min:1', 'max:6'],
-            'course' => ['required', 'string', 'max:20'],
-            'year_level' => ['required', 'string', 'in:1,2,3,4'],
-        ]);
-
-        $data = $request->all();
+        $data = $request->validated();
         $data['semester'] = '1st';
 
         Subject::create($data);
@@ -32,17 +24,9 @@ class AdminSubjectController extends Controller
             ->with('success', 'Subject added successfully');
     }
 
-    public function update(Request $request, Subject $subject)
+    public function update(SubjectRequest $request, Subject $subject)
     {
-        $request->validate([
-            'code' => ['required', 'string', 'max:20', 'unique:subjects,code,'.$subject->id],
-            'name' => ['required', 'string', 'max:255'],
-            'units' => ['required', 'integer', 'min:1', 'max:6'],
-            'course' => ['required', 'string', 'max:20'],
-            'year_level' => ['required', 'string', 'in:1,2,3,4'],
-        ]);
-
-        $subject->update($request->all());
+        $subject->update($request->validated());
         return redirect()->route('admin.subjects.index')
             ->with('success', 'Subject updated successfully');
     }

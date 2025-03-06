@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\EnrollmentRequest;
 use App\Models\Enrollment;
 use App\Models\Subject;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AdminEnrollmentController extends Controller
 {
@@ -51,46 +51,11 @@ class AdminEnrollmentController extends Controller
         return response()->json($subject);
     }
 
-    public function store(Request $request)
+    public function store(EnrollmentRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'subject_id' => 'required|exists:subjects,id', 
-            'academic_year' => 'required|string',
-            'semester' => 'required|in:1st,2nd',
-        ]);
-
-        // Check if enrollment already exists
-        $existingEnrollment = Enrollment::where('user_id', $request->user_id)
-            ->where('subject_id', $request->subject_id)
-            ->where('academic_year', $request->academic_year)
-            ->where('semester', $request->semester)
-            ->first();
-
-        if ($existingEnrollment) {
-            return redirect()->route('admin.enrollments.index')
-                ->with('error', 'Student is already enrolled in this subject for the selected academic year and semester.');
-        }
-
-        // Create enrollment
-        try {
-            Enrollment::create([
-                'user_id' => $request->user_id,
-                'subject_id' => $request->subject_id,
-                'academic_year' => $request->academic_year,
-                'semester' => $request->semester,
-            ]);
-
-            // Update the student's enrollment status to true
-            User::where('id', $request->user_id)->update(['is_enrolled' => true]);
-
-            return redirect()->route('admin.enrollments.index')
-                ->with('success', 'Student enrolled successfully.');
-        } catch (\Exception $e) {
-            \Log::error('Enrollment error: ' . $e->getMessage());
-            return redirect()->route('admin.enrollments.index')
-                ->with('error', 'An error occurred while enrolling the student. Please try again.');
-        }
+        Enrollment::create($request->validated());
+        return redirect()->route('admin.enrollments.index')
+            ->with('success', 'Enrollment created successfully');
     }
 
     public function destroy(Enrollment $enrollment)

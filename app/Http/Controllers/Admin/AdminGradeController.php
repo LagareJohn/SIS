@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\GradeRequest;
 use App\Models\Grade;
 use App\Models\User;
 use App\Models\Subject;
 use App\Models\Enrollment;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminGradeController extends Controller
 {
@@ -24,31 +23,11 @@ class AdminGradeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GradeRequest $request)
     {
-        $request->validate([
-            'enrollment_id' => 'required|exists:enrollments,id',
-            'final_grade' => 'required',
-            // We don't need to validate academic_year and semester since they come from the enrollment
-        ]);
-
-        // Check if grade already exists
-        if (Grade::where('enrollment_id', $request->enrollment_id)->exists()) {
-            return redirect()->back()->with('error', 'A grade for this enrollment already exists');
-        }
-
-        // Get remarks based on the grade
-        $remarks = $this->getRemarks($request->final_grade);
-
-        // Create the grade
-        Grade::create([
-            'enrollment_id' => $request->enrollment_id,
-            'final_grade' => $request->final_grade,
-            'remarks' => $remarks,
-            // No need to store academic_year and semester as they're retrieved from the enrollment
-        ]);
-
-        return redirect()->route('admin.grades.index')->with('success', 'Grade added successfully');
+        Grade::create($request->validated());
+        return redirect()->route('admin.grades.index')
+            ->with('success', 'Grade added successfully');
     }
 
     /**
