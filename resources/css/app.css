@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* App Drawer Styles */
+.translate-x-0 {
+    transform: translateX(0);
+}
+
+.-translate-x-full {
+    transform: translateX(-100%);
+}
+
+nav {
+    width: 300px;
+    z-index: 50;
+}
+
+/* Ensure content doesn't overlap with the hamburger button */
+main {
+    padding-top: 4rem;
+}
