@@ -180,7 +180,7 @@
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center login-panel">
+              <div class="position-relative bg-gradient-dark h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center login-panel" style="background-image: linear-gradient(310deg, #000000, #333333) !important;">
                 <img src="{{ asset('assets/img/shapes/pattern-lines.svg') }}" alt="pattern-lines" class="position-absolute opacity-4 start-0">
                 <div class="position-relative buksu-hero">
                   <h2 class="mt-5 text-white font-weight-bolder">Bukidnon State University</h2>

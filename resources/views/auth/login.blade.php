@@ -118,6 +118,7 @@
                     <div class="mb-3">
                       <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                     </div>
+
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe" name="remember">
                       <label class="form-check-label" for="rememberMe">Remember me</label>
